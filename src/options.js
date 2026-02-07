@@ -44,27 +44,56 @@ function renderConfigs() {
         const card = document.createElement('div');
         card.className = 'config-card';
         
-        const cookieTags = config.cookies.split(',').map(c => 
-            `<span class="cookie-tag">${c.trim()}</span>`
-        ).join('');
-
-        card.innerHTML = `
-            <div class="card-header">
-                <div class="domain-name">${config.domain}</div>
-                <div class="card-actions">
-                    <button class="btn icon secondary edit-btn" data-id="${config.id}" title="Edit">
-                        <span>Edit</span>
-                    </button>
-                    <button class="btn icon danger delete-btn" data-id="${config.id}" title="Delete">
-                        <span>Delete</span>
-                    </button>
-                </div>
-            </div>
-            <div class="cookie-list">
-                ${cookieTags}
-            </div>
-            <div class="template-preview">${config.template}</div>
-        `;
+        // Header
+        const cardHeader = document.createElement('div');
+        cardHeader.className = 'card-header';
+        
+        const domainName = document.createElement('div');
+        domainName.className = 'domain-name';
+        domainName.textContent = config.domain;
+        
+        const cardActions = document.createElement('div');
+        cardActions.className = 'card-actions';
+        
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn icon secondary edit-btn';
+        editBtn.setAttribute('data-id', config.id);
+        editBtn.title = 'Edit';
+        const editSpan = document.createElement('span');
+        editSpan.textContent = 'Edit';
+        editBtn.appendChild(editSpan);
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn icon danger delete-btn';
+        deleteBtn.setAttribute('data-id', config.id);
+        deleteBtn.title = 'Delete';
+        const deleteSpan = document.createElement('span');
+        deleteSpan.textContent = 'Delete';
+        deleteBtn.appendChild(deleteSpan);
+        
+        cardActions.appendChild(editBtn);
+        cardActions.appendChild(deleteBtn);
+        cardHeader.appendChild(domainName);
+        cardHeader.appendChild(cardActions);
+        
+        // Cookies
+        const cookieList = document.createElement('div');
+        cookieList.className = 'cookie-list';
+        config.cookies.split(',').forEach(c => {
+            const span = document.createElement('span');
+            span.className = 'cookie-tag';
+            span.textContent = c.trim();
+            cookieList.appendChild(span);
+        });
+        
+        // Template
+        const templatePreview = document.createElement('div');
+        templatePreview.className = 'template-preview';
+        templatePreview.textContent = config.template;
+        
+        card.appendChild(cardHeader);
+        card.appendChild(cookieList);
+        card.appendChild(templatePreview);
         
         configList.appendChild(card);
     });

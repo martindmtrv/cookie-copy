@@ -17,7 +17,7 @@ With Cookie Copy, you can define custom templates for your favorite websites, al
 1. Clone this repository or download the source code.
 2. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`.
 3. Click **"Load Temporary Add-on..."**.
-4. Select the `manifest.json` file in the project directory.
+4. Select the `manifest.json` file in the `src/` directory.
 
 ## Packaging for Release
 
@@ -49,11 +49,14 @@ Follow the [Publishing Guide](file:///home/martin/.gemini/antigravity/brain/edd1
 ## Project Structure
 
 ```text
-├── manifest.json       # Extension configuration
-├── background.js       # Core logic for matching and extraction
-├── options.html/js/css # Configuration management UI
-├── popup.html/js/css   # Quick-copy popup UI
-└── icons/              # Extension icons
+├── src/                # Extension source code
+│   ├── manifest.json   # Extension configuration
+│   ├── background.js   # Core logic for matching and extraction
+│   ├── options.html/js/css # Configuration management UI
+│   ├── popup.html/js/css   # Quick-copy popup UI
+│   └── icons/          # Extension icons
+├── build.sh            # Packaging script
+└── README.md           # This file
 ```
 
 ## Publishing
