@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Copy</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body class="dark-mode">
+    <div class="popup-container">
+        <header>
+            <div class="logo">
+                <img src="icons/icon-48.png" alt="Logo">
+                <h2>Cookie Copy</h2>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <div id="matching-site" class="hidden">
+                <div class="site-info">
+                    <p class="label">Matching site detected:</p>
+                    <p id="detected-domain" class="value"></p>
+                </div>
+                <div class="preview-box">
+                    <label>Rendered Template:</label>
+                    <pre id="rendered-preview"></pre>
+                </div>
+                <button id="copy-btn" class="btn primary full-width">Copy to Clipboard</button>
+                <div id="copy-status" class="status-msg hidden">Copied!</div>
+            </div>
+
+            <div id="no-match" class="empty-state hidden">
+                <p>No cookie configuration found for this site.</p>
+                <button id="open-options-btn" class="btn secondary">Configure Sites</button>
+            </div>
+        </main>
+
+        <footer>
+            <button id="settings-link" class="link-btn">Settings</button>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Copy Settings</title>
+    <link rel="stylesheet" href="options.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="icons/icon-48.png" alt="Logo">
+                <h1>Cookie Copy</h1>
+            </div>
+            <p class="subtitle">Configure cookie templates per website</p>
+        </header>
+
+        <main>
+            <section id="config-list-section">
+                <div class="section-header">
+                    <h2>Site Configurations</h2>
+                    <button id="add-site-btn" class="btn primary">Add New Site</button>
+                </div>
+                <div id="config-list" class="grid-list">
+                    <!-- Config items will be injected here -->
+                    <div id="no-configs" class="empty-state">
+                        <p>No websites configured yet.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for adding/editing a site -->
+        <div id="config-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Configure Site</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <form id="config-form">
+                    <div class="form-group">
+                        <label for="domain">Domain / URL Pattern</label>
+                        <input type="text" id="domain" placeholder="e.g. github.com" required>
+                        <small>Extension matches this against the current tab URL.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="cookie-keys">Cookie Keys (comma separated)</label>
+                        <input type="text" id="cookie-keys" placeholder="e.g. _gh_sess, user_session" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="template">Template</label>
+                        <textarea id="template" rows="4" placeholder="e.g. session={{_gh_sess}}; user={{user_session}}" required></textarea>
+                        <small>Use {{key}} to inject cookie values.</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary close-btn">Cancel</button>
+                        <button type="submit" class="btn primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html>
