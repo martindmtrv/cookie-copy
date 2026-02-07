@@ -31,8 +31,6 @@ To create a ZIP package for submission to the Firefox Add-ons marketplace:
 
 This will generate `cookie-copy-extension.zip` containing all necessary files while excluding development artifacts.
 
-### For Android Testing
-Follow the [Publishing Guide](file:///home/martin/.gemini/antigravity/brain/edd15e83-c8c6-4429-9af9-c1032b0769ad/publishing_guide.md) to learn how to test on Firefox for Android using Nightly builds and collections.
 
 ## How to Use
 
