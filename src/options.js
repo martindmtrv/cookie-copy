@@ -151,21 +151,40 @@ async function deleteConfig(id) {
 // Highlighter Logic
 function updateHighlighter() {
     const text = templateInput.value;
+    const fragment = document.createDocumentFragment();
     
-    // Escape HTML to prevent injection in the backdrop
-    const escapedText = text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    
-    // Highlight {{variable}} patterns
-    const highlightedText = escapedText.replace(/\{\{([^}]+)\}\}/g, (match) => {
-        return `<span class="var-highlight">${match}</span>`;
-    });
-    
-    // Wrap non-highlighted parts in a class if desired for CSS control
-    // But simplest is to just set innerHTML
-    templateBackdrop.innerHTML = highlightedText + (text.endsWith('\n') ? '\n' : '');
+    // Regex to find {{variable}} patterns
+    const regex = /\{\{([^}]+)\}\}/g;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+        // Add text before the match
+        if (match.index > lastIndex) {
+            fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+        }
+        
+        // Add the highlighted span
+        const span = document.createElement('span');
+        span.className = 'var-highlight';
+        span.textContent = match[0];
+        fragment.appendChild(span);
+        
+        lastIndex = regex.lastIndex;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+    }
+
+    // Add trailing newline if needed for scrolling sync alignment
+    if (text.endsWith('\n')) {
+        fragment.appendChild(document.createTextNode('\n'));
+    }
+
+    templateBackdrop.textContent = '';
+    templateBackdrop.appendChild(fragment);
 }
 
 // Synchronize scrolling
