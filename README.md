@@ -2,6 +2,8 @@
 
 Cookie Copy is a Firefox extension (compatible with both Desktop and Android) designed for power users who need to quickly extract and format cookie data from specific websites.
 
+**[Install from Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/cookie-copy/)**
+
 With Cookie Copy, you can define custom templates for your favorite websites, allowing you to copy session tokens, user IDs, or any other cookie values to your clipboard in exactly the format you need.
 
 ## Features
@@ -59,10 +61,6 @@ Follow the [Publishing Guide](file:///home/martin/.gemini/antigravity/brain/edd1
 └── README.md           # This file
 ```
 
-## Publishing
-
-For detailed instructions on how to publish this extension to the Firefox Add-ons marketplace (AMO), refer to the [Publishing Guide](file:///home/martin/.gemini/antigravity/brain/edd15e83-c8c6-4429-9af9-c1032b0769ad/publishing_guide.md).
-
 ## License
 
-This project is open-source and available under the MIT License.
+This project is open-source and available under the [MIT License](LICENSE).
