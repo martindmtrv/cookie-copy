@@ -9,6 +9,8 @@ const configModal = document.getElementById('config-modal');
 const configForm = document.getElementById('config-form');
 const modalTitle = document.getElementById('modal-title');
 const closeBtns = document.querySelectorAll('.close-btn');
+const templateBackdrop = document.getElementById('template-backdrop');
+const templateInput = document.getElementById('template');
 
 // State
 let configs = [];
@@ -128,6 +130,7 @@ function openModal(id = null) {
         modalTitle.textContent = 'Add New Site';
     }
     configModal.classList.add('active');
+    updateHighlighter();
 }
 
 // Close modal
@@ -145,13 +148,42 @@ async function deleteConfig(id) {
     }
 }
 
+// Highlighter Logic
+function updateHighlighter() {
+    const text = templateInput.value;
+    
+    // Escape HTML to prevent injection in the backdrop
+    const escapedText = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    
+    // Highlight {{variable}} patterns
+    const highlightedText = escapedText.replace(/\{\{([^}]+)\}\}/g, (match) => {
+        return `<span class="var-highlight">${match}</span>`;
+    });
+    
+    // Wrap non-highlighted parts in a class if desired for CSS control
+    // But simplest is to just set innerHTML
+    templateBackdrop.innerHTML = highlightedText + (text.endsWith('\n') ? '\n' : '');
+}
+
+// Synchronize scrolling
+templateInput.addEventListener('scroll', () => {
+    templateBackdrop.scrollTop = templateInput.scrollTop;
+    templateBackdrop.scrollLeft = templateInput.scrollLeft;
+});
+
+// Update on input
+templateInput.addEventListener('input', updateHighlighter);
+
 // Handle form submission
 configForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const domain = document.getElementById('domain').value.trim();
     const cookies = document.getElementById('cookie-keys').value.trim();
-    const template = document.getElementById('template').value.trim();
+    const template = templateInput.value.trim();
 
     if (editingId) {
         const index = configs.findIndex(c => c.id === editingId);
@@ -171,7 +203,10 @@ configForm.addEventListener('submit', async (e) => {
 });
 
 // Event Listeners
-addSiteBtn.addEventListener('click', () => openModal());
+addSiteBtn.addEventListener('click', () => {
+    openModal();
+    updateHighlighter();
+});
 closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
 
 // Close modal on outside click

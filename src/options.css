@@ -56,6 +56,7 @@ h1 {
     margin: 0;
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -277,6 +278,78 @@ input:focus, textarea:focus {
 
 textarea {
     resize: vertical;
+}
+
+/* Highlighter Styles */
+.highlighter-container {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.highlighter-container:focus-within {
+    border-color: var(--accent-color);
+}
+
+.backdrop, #template {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--text-secondary);
+    pointer-events: none;
+    z-index: 1;
+    overflow-y: auto;
+}
+
+#template {
+    position: relative;
+    display: block;
+    color: var(--text-primary);
+    caret-color: var(--text-primary);
+    z-index: 2;
+    background: transparent;
+}
+
+/* The actual text in the textarea should be partially transparent 
+   so we can see the highlights behind it, OR we make the text in the 
+   textarea transparent and only show the caret, but that can be tricky.
+   Better: Make textarea text transparent and show highlights in backdrop. */
+#template {
+    color: transparent;
+    caret-color: var(--text-primary);
+}
+
+.var-highlight {
+    color: #ffd700;
+    background-color: rgba(255, 215, 0, 0.15);
+    border-radius: 3px;
+    padding: 0 2px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Text in backdrop that isn't highlighted should be visible */
+.backdrop-text {
+    color: var(--text-secondary);
 }
 
 small {
